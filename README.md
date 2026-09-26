@@ -37,7 +37,7 @@ On startup, YouScrapper checks the public [releases repo](https://github.com/doo
 - **MSI install:** downloads the new `.msi` and upgrades the copy in Program Files. Windows asks for admin permission.
 - **Portable exe:** downloads the new `.exe`, replaces the old one in the same folder, and restarts.
 
-yt-dlp is updated separately with **File → Update yt-dlp**. It runs from `%APPDATA%\YouScrapperin`, so updating it doesn't need admin rights.
+yt-dlp is updated separately with **File → Update yt-dlp**. It runs from `%APPDATA%\YouScrapper\bin`, so updating it doesn't need admin rights.
 
 ## Usage
 
