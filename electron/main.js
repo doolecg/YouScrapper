@@ -1,10 +1,19 @@
 import { app, BrowserWindow, dialog, Menu, shell } from 'electron';
 import { execFile } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
+import { checkForUpdates, cleanupOldPortable } from './updater.js';
 
 // The packaged app ships yt-dlp.exe in resources/bin (see "extraResources" in package.json).
+// Program Files is read-only, so run a copy from AppData that "Update yt-dlp" can overwrite.
 if (app.isPackaged) {
-  process.env.YTDLP_PATH = path.join(process.resourcesPath, 'bin', process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp');
+  const name = process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp';
+  const userCopy = path.join(app.getPath('userData'), 'bin', name);
+  if (!fs.existsSync(userCopy)) {
+    fs.mkdirSync(path.dirname(userCopy), { recursive: true });
+    fs.copyFileSync(path.join(process.resourcesPath, 'bin', name), userCopy);
+  }
+  process.env.YTDLP_PATH = userCopy;
 }
 
 if (!app.requestSingleInstanceLock()) app.quit();
@@ -50,6 +59,7 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     label: 'File',
     submenu: [
       { label: 'Open downloads folder', click: () => shell.openPath(server.DOWNLOAD_DIR) },
+      { label: 'Check for app updates', click: () => checkForUpdates(win, { silent: false }) },
       { label: 'Update yt-dlp (fixes broken sites)', click: updateYtDlp },
       { type: 'separator' },
       { role: 'quit' },
@@ -65,4 +75,8 @@ app.on('second-instance', () => {
 });
 app.on('before-quit', () => server?.cancelAll());
 app.on('window-all-closed', () => app.quit());
-app.whenReady().then(createWindow);
+app.whenReady().then(async () => {
+  cleanupOldPortable();
+  await createWindow();
+  checkForUpdates(win);
+});

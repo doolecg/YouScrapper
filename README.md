@@ -19,16 +19,25 @@ Built with **React + Electron**, powered by [yt-dlp](https://github.com/yt-dlp/y
 
 ## Download & install
 
-Grab one of the builds from the `release/` folder (or the GitHub Releases page):
+Get the latest build from the **[Releases page](https://github.com/doolecg/YouScrapper-releases/releases/latest)**:
 
 | File | What it is |
 | --- | --- |
-| `YouScrapper Setup x.y.z.exe` | Installer with a Start Menu shortcut and uninstaller |
-| `YouScrapper x.y.z.exe` | Portable version, which runs without installing |
+| `YouScrapper-Setup-x.y.z.msi` | Installs to `C:\Program Files\YouScrapper` and adds Start Menu and desktop shortcuts (needs admin) |
+| `YouScrapper-Portable-x.y.z.exe` | Portable version that runs from anywhere without installing |
 
 > Windows SmartScreen may warn you because the app isn't code-signed. Click **More info → Run anyway**.
 
 Files are saved to **`%USERPROFILE%\Downloads\YouScrapper`**. You can also open that folder from **File → Open downloads folder**.
+
+### Automatic updates
+
+On startup, YouScrapper checks the public [releases repo](https://github.com/doolecg/YouScrapper-releases) for a newer version. You can also check anytime from **File → Check for app updates**.
+
+- **MSI install:** downloads the new `.msi` and upgrades the copy in Program Files. Windows asks for admin permission.
+- **Portable exe:** downloads the new `.exe`, replaces the old one in the same folder, and restarts.
+
+yt-dlp is updated separately with **File → Update yt-dlp**. It runs from `%APPDATA%\YouScrapperin`, so updating it doesn't need admin rights.
 
 ## Usage
 
@@ -63,13 +72,20 @@ npm approve-scripts electron ffmpeg-static esbuild electron-winstaller
 npm rebuild
 ```
 
+### Publishing a new version
+
+1. Bump `version` in `package.json`, for example `1.0.1`.
+2. Run `npm run release`. It builds both files and uploads them to a new `v1.0.1` release.
+3. Installed copies pick up the update the next time they start.
+
 ### Scripts
 
 | Command | Description |
 | --- | --- |
 | `npm start` | Build the UI and launch the desktop app |
 | `npm run dev` | Browser dev mode with hot reload (UI at http://localhost:5173) |
-| `npm run dist` | Build the Windows installer and portable `.exe` into `release/` |
+| `npm run dist` | Build the MSI installer and portable `.exe` into `release/` |
+| `npm run release` | Build, then publish both files as a GitHub release on `doolecg/YouScrapper-releases` (needs `gh auth login`) |
 | `npm run update-ytdlp` | Re-download the latest yt-dlp into `./bin` |
 
 ## How it works
@@ -89,6 +105,7 @@ npm rebuild
 - **`electron/main.js`** starts the local API server on a random localhost port and opens the window.
 - **`server/index.js`** wraps yt-dlp: `/api/info` reads metadata, `/api/download` starts a job, and `/api/jobs/:id/events` streams progress.
 - **`src/`** holds the React UI, built with Vite.
+- **`electron/updater.js`** checks GitHub Releases and installs new versions.
 - **`scripts/ytdlp.js`** downloads the right yt-dlp binary for your platform.
 
 The server only listens on `127.0.0.1`, so nothing is exposed to your network.
@@ -97,9 +114,12 @@ The server only listens on `127.0.0.1`, so nothing is exposed to your network.
 
 ```
 YouScrapper/
+├── build/               # App icon (icon.ico / icon.png)
 ├── electron/main.js     # Desktop window, menu, packaging paths
+├── electron/updater.js  # Self-updater for the MSI install and portable exe
 ├── server/index.js      # Local API around yt-dlp + ffmpeg
 ├── scripts/ytdlp.js     # yt-dlp downloader/updater
+├── scripts/release.js   # Publishes a release with gh
 ├── src/                 # React UI (App.jsx, styles.css)
 ├── index.html
 ├── vite.config.js
