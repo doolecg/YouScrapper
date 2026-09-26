@@ -8,7 +8,7 @@ import path from 'node:path';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 
-const REPO = 'doolecg/YouScrapper-releases';
+const REPO = 'doolecg/YouScrapper';
 const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`;
 
 // electron-builder sets this when running the portable exe.

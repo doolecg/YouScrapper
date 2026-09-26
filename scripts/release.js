@@ -2,7 +2,7 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 
-const REPO = 'doolecg/YouScrapper-releases';
+const REPO = 'doolecg/YouScrapper';
 const { version } = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const files = [`release/YouScrapper-Setup-${version}.msi`, `release/YouScrapper-Portable-${version}.exe`];
 for (const f of files) if (!fs.existsSync(f)) throw new Error(`Missing ${f}. Run npm run dist first.`);

@@ -19,7 +19,7 @@ Built with **React + Electron**, powered by [yt-dlp](https://github.com/yt-dlp/y
 
 ## Download & install
 
-Get the latest build from the **[Releases page](https://github.com/doolecg/YouScrapper-releases/releases/latest)**:
+Get the latest build from the **[Releases page](https://github.com/doolecg/YouScrapper/releases/latest)**:
 
 | File | What it is |
 | --- | --- |
@@ -32,7 +32,7 @@ Files are saved to **`%USERPROFILE%\Downloads\YouScrapper`**. You can also open 
 
 ### Automatic updates
 
-On startup, YouScrapper checks the public [releases repo](https://github.com/doolecg/YouScrapper-releases) for a newer version. You can also check anytime from **File → Check for app updates**.
+On startup, YouScrapper checks this repo's [Releases page](https://github.com/doolecg/YouScrapper/releases) for a newer version. You can also check anytime from **File → Check for app updates**.
 
 - **MSI install:** downloads the new `.msi` and upgrades the copy in Program Files. Windows asks for admin permission.
 - **Portable exe:** downloads the new `.exe`, replaces the old one in the same folder, and restarts.
@@ -85,7 +85,7 @@ npm rebuild
 | `npm start` | Build the UI and launch the desktop app |
 | `npm run dev` | Browser dev mode with hot reload (UI at http://localhost:5173) |
 | `npm run dist` | Build the MSI installer and portable `.exe` into `release/` |
-| `npm run release` | Build, then publish both files as a GitHub release on `doolecg/YouScrapper-releases` (needs `gh auth login`) |
+| `npm run release` | Build, then publish both files as a GitHub release on `doolecg/YouScrapper` (needs `gh auth login`) |
 | `npm run update-ytdlp` | Re-download the latest yt-dlp into `./bin` |
 
 ## How it works
