@@ -13,7 +13,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 // Inside a packaged Electron app, native binaries live outside the read-only app.asar archive.
 const FFMPEG = ffmpegPath.replace(`app.asar${path.sep}`, `app.asar.unpacked${path.sep}`);
-const DOWNLOAD_DIR = process.env.DOWNLOAD_DIR || path.join(os.homedir(), 'Downloads', 'YouScrapper');
+const DEFAULT_DOWNLOAD_DIR = process.env.DOWNLOAD_DIR || path.join(os.homedir(), 'Downloads', 'YouScrapper');
+let DOWNLOAD_DIR = DEFAULT_DOWNLOAD_DIR;
 const COOKIE_BROWSERS = new Set(['firefox', 'chrome', 'edge', 'brave', 'opera', 'vivaldi', 'safari']);
 const HEIGHTS = new Set(['2160', '1440', '1080', '720', '480', '360']);
 const BITRATES = new Set(['320', '192', '128']);
@@ -230,14 +231,24 @@ app.post('/api/open-folder', (req, res) => {
   res.json({ ok: true });
 });
 
-app.get('/api/config', (_req, res) => res.json({ downloadDir: DOWNLOAD_DIR }));
+app.get('/api/config', (_req, res) => res.json({ downloadDir: DOWNLOAD_DIR, defaultDownloadDir: DEFAULT_DOWNLOAD_DIR }));
 
 if (fs.existsSync(DIST)) {
   app.use(express.static(DIST));
   app.get(/^(?!\/api\/).*/, (_req, res) => res.sendFile(path.join(DIST, 'index.html')));
 }
 
-export { DOWNLOAD_DIR, YTDLP };
+export { YTDLP };
+
+export function getDownloadDir() {
+  return DOWNLOAD_DIR;
+}
+
+// Change where new downloads are saved (falsy = back to the default folder).
+export function setDownloadDir(dir) {
+  DOWNLOAD_DIR = dir || DEFAULT_DOWNLOAD_DIR;
+  fs.mkdirSync(DOWNLOAD_DIR, { recursive: true });
+}
 
 // Stop any running yt-dlp processes (called when the desktop app quits).
 export function cancelAll() {

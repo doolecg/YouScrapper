@@ -15,6 +15,7 @@ Built with **React + Electron**, powered by [yt-dlp](https://github.com/yt-dlp/y
 - 📁 **Show in folder** or **Save as…** when a download finishes
 - 🍪 **Browser cookies** (optional) for private or login-only posts, which is mostly an Instagram issue
 - 🔄 **Update yt-dlp** from the menu when a site changes and downloads stop working
+- ⚙️ **Settings page** for app updates, yt-dlp, download folder and default format/quality
 - 📦 No setup needed: yt-dlp and ffmpeg ship inside the app
 
 ## Download & install
@@ -28,16 +29,29 @@ Get the latest build from the **[Releases page](https://github.com/doolecg/YouSc
 
 > Windows SmartScreen may warn you because the app isn't code-signed. Click **More info → Run anyway**.
 
-Files are saved to **`%USERPROFILE%\Downloads\YouScrapper`**. You can also open that folder from **File → Open downloads folder**.
+Files are saved to **`%USERPROFILE%\Downloads\YouScrapper`** by default. You can change this in **Settings**, or open the folder from **File → Open downloads folder**.
 
 ### Automatic updates
 
-On startup, YouScrapper checks this repo's [Releases page](https://github.com/doolecg/YouScrapper/releases) for a newer version. You can also check anytime from **File → Check for app updates**.
+On startup, YouScrapper checks this repo's [Releases page](https://github.com/doolecg/YouScrapper/releases) for a newer version. You can also check anytime from **Settings** or **File → Check for app updates**.
 
 - **MSI install:** downloads the new `.msi` and upgrades the copy in Program Files. Windows asks for admin permission.
 - **Portable exe:** downloads the new `.exe`, replaces the old one in the same folder, and restarts.
 
-yt-dlp is updated separately with **File → Update yt-dlp**. It runs from `%APPDATA%\YouScrapper\bin`, so updating it doesn't need admin rights.
+yt-dlp is updated separately from **Settings** or **File → Update yt-dlp**. It runs from `%APPDATA%\YouScrapper\bin`, so updating it doesn't need admin rights.
+
+### Settings
+
+Open **Settings** with the ⚙ button in the top-right corner, **File → Settings…**, or **Ctrl+,**.
+
+| Section | Options |
+| --- | --- |
+| App updates | Shows your version and release notes. You can **check now**, **check on startup** (on by default), **install updates automatically** without asking, **include pre-releases**, and un-skip a version you skipped. |
+| yt-dlp | Shows the yt-dlp version. You can **update now** or **update on startup**. |
+| Downloads | Download folder, default format (MP4/MP3), default video and audio quality, and browser cookies. |
+| About | Version info and **Reset all** settings. |
+
+App settings are saved in `%APPDATA%\YouScrapper\settings.json`.
 
 ## Usage
 
@@ -51,8 +65,8 @@ yt-dlp is updated separately with **File → Update yt-dlp**. It runs from `%APP
 | Problem | Fix |
 | --- | --- |
 | A site suddenly stops working | **File → Update yt-dlp**. Sites change often and yt-dlp updates fix most breakages. |
-| Instagram says "login required" | Open **Advanced** and pick a browser you're logged into Instagram with. **Firefox** works best; recent Chrome/Edge versions encrypt cookies so tools can't read them. |
-| "Sign in to confirm you're not a bot" on YouTube | Same fix: use browser cookies from **Advanced**. |
+| Instagram says "login required" | Open **Settings → Browser cookies** and pick a browser you're logged into Instagram with. **Firefox** works best; recent Chrome/Edge versions encrypt cookies so tools can't read them. |
+| "Sign in to confirm you're not a bot" on YouTube | Same fix: use browser cookies from **Settings**. |
 
 ## Building from source
 

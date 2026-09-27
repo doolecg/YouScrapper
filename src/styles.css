@@ -25,7 +25,9 @@ body {
 
 .app { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
 
-header { text-align: center; margin-bottom: 24px; }
+header { text-align: center; margin-bottom: 24px; position: relative; }
+.settings-button { position: absolute; top: -12px; right: 0; color: var(--muted); }
+.settings-button:hover { color: var(--text); }
 header h1 { margin: 0; font-size: 2.4rem; letter-spacing: -0.02em; }
 header h1 span {
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
@@ -133,9 +135,9 @@ button[type='submit'], .primary, .button {
 .toggle button { background: transparent; padding: 8px 14px; color: var(--muted); }
 .toggle button.active { background: var(--text); color: var(--bg); }
 
-.advanced summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; }
-.advanced label { display: flex; flex-direction: column; gap: 6px; margin: 12px 0 8px; font-size: 0.9rem; color: var(--muted); }
-.advanced select { max-width: 260px; }
+.footnote { font-size: 0.85rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 code { background: var(--card-2); padding: 2px 6px; border-radius: 6px; font-size: 0.85em; overflow-wrap: anywhere; }
 
 .jobs { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
@@ -162,7 +164,76 @@ code { background: var(--card-2); padding: 2px 6px; border-radius: 6px; font-siz
 .job-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .actions { display: flex; gap: 6px; }
 
+/* Settings page */
+.settings { display: flex; flex-direction: column; gap: 16px; }
+.settings-head { display: flex; align-items: center; gap: 14px; }
+.settings-head h2 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
+.settings .card { gap: 12px; }
+.settings h3 { margin: 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.setting.disabled .setting-text { opacity: 0.5; }
+.setting-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.setting-text small { color: var(--muted); font-size: 0.82rem; line-height: 1.4; }
+.setting-control { flex-shrink: 0; display: flex; }
+.setting-control select { min-width: 170px; }
+
+.version-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.version { display: flex; align-items: center; gap: 8px; font-size: 1.05rem; margin-bottom: 4px; }
+
+.status {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.status.available { border-color: rgba(255, 61, 90, 0.5); }
+.status.latest { color: var(--ok); }
+.status.error { color: var(--err); border-color: rgba(255, 92, 108, 0.35); }
+.status .bar { margin: 8px 0 0; }
+
+.switch {
+  appearance: none;
+  width: 42px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  border-radius: 999px;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.switch::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.switch:checked { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-color: transparent; }
+.switch:checked::before { transform: translateX(18px); background: #fff; }
+.switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.switch:disabled { opacity: 0.4; cursor: default; }
+
 @media (max-width: 560px) {
+  .setting { flex-direction: column; align-items: stretch; }
+  .setting-control { justify-content: flex-start; }
+  .settings-button { position: static; margin-bottom: 8px; }
   .preview { flex-direction: column; }
   .preview img { width: 100%; }
   .options .primary { margin-left: 0; width: 100%; }
