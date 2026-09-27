@@ -1,6 +1,6 @@
 {
   "name": "youscrapper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "type": "module",
   "description": "MP3/MP4 downloader for YouTube, TikTok and Instagram (React + yt-dlp)",
