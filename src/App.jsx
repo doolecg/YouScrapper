@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Settings from './Settings.jsx';
+import { applyTheme } from './theme.js';
 
 const VIDEO_QUALITIES = [2160, 1440, 1080, 720, 480, 360];
 const AUDIO_QUALITIES = [
@@ -10,7 +11,13 @@ const AUDIO_QUALITIES = [
 ];
 const PLATFORM_LABEL = { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram', other: 'Web' };
 // Download preferences, kept in localStorage so they also work in browser mode.
-const PREF_DEFAULTS = { cookies: 'none', defaultFormat: 'mp4', defaultVideoQuality: 'best', defaultAudioQuality: 'best' };
+const PREF_DEFAULTS = {
+  theme: 'system',
+  cookies: 'none',
+  defaultFormat: 'mp4',
+  defaultVideoQuality: 'best',
+  defaultAudioQuality: 'best',
+};
 
 async function api(path, body) {
   const res = await fetch(`/api${path}`, {
@@ -67,6 +74,7 @@ export default function App() {
   }, []);
 
   useEffect(loadConfig, [loadConfig]);
+  useEffect(() => applyTheme(prefs.theme), [prefs.theme]);
   useEffect(() => window.youscrapper?.onOpenSettings(() => setView('settings')), []);
 
   // Save preferences and apply new defaults to the form if nothing has been fetched yet.

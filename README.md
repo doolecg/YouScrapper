@@ -15,7 +15,7 @@ Built with **React + Electron**, powered by [yt-dlp](https://github.com/yt-dlp/y
 - 📁 **Show in folder** or **Save as…** when a download finishes
 - 🍪 **Browser cookies** (optional) for private or login-only posts, which is mostly an Instagram issue
 - 🔄 **Update yt-dlp** from the menu when a site changes and downloads stop working
-- ⚙️ **Settings page** for app updates, yt-dlp, download folder and default format/quality
+- ⚙️ **Settings page** for light/dark theme, app updates, yt-dlp, download folder and default format/quality
 - 📦 No setup needed: yt-dlp and ffmpeg ship inside the app
 
 ## Download & install
@@ -46,6 +46,7 @@ Open **Settings** with the ⚙ button in the top-right corner, **File → Settin
 
 | Section | Options |
 | --- | --- |
+| Appearance | **Theme**: System (follows Windows), Light or Dark. |
 | App updates | Shows your version and release notes. You can **check now**, **check on startup** (on by default), **install updates automatically** without asking, **include pre-releases**, and un-skip a version you skipped. |
 | yt-dlp | Shows the yt-dlp version. You can **update now** or **update on startup**. |
 | Downloads | Download folder, default format (MP4/MP3), default video and audio quality, and browser cookies. |

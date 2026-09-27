@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 const desktop = window.youscrapper;
 
 const VIDEO_QUALITIES = [2160, 1440, 1080, 720, 480, 360];
+const THEMES = [
+  { value: 'system', label: 'System' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+];
 const AUDIO_QUALITIES = [
   { value: 'best', label: 'Best (VBR)' },
   { value: '320', label: '320 kbps' },
@@ -120,6 +125,26 @@ export default function Settings({ prefs, setPref, resetPrefs, config, onConfigC
         <button type="button" className="ghost small" onClick={onClose}>← Back</button>
         <h2>Settings</h2>
       </div>
+
+      <section className="card">
+        <h3>Appearance</h3>
+        <Setting label="Theme" hint="System follows your Windows light/dark setting.">
+          <div className="toggle" role="radiogroup" aria-label="Theme">
+            {THEMES.map((t) => (
+              <button
+                key={t.value}
+                type="button"
+                role="radio"
+                aria-checked={prefs.theme === t.value}
+                className={prefs.theme === t.value ? 'active' : ''}
+                onClick={() => setPref('theme', t.value)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </Setting>
+      </section>
 
       <section className="card">
         <h3>App updates</h3>

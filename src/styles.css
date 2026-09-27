@@ -9,15 +9,43 @@
   --accent-2: #ff6b3d;
   --ok: #34c77b;
   --err: #ff5c6c;
+  --err-bg: rgba(255, 92, 108, 0.1);
+  --err-border: rgba(255, 92, 108, 0.35);
+  --glow: #2a1520;
+  --shimmer: #262b36;
+  --youtube: #ff5c5c;
+  --tiktok: #25f4ee;
+  --instagram: #f06292;
   color-scheme: dark;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+:root[data-theme='light'] {
+  --bg: #f4f5f8;
+  --card: #ffffff;
+  --card-2: #eceef3;
+  --border: #d8dce4;
+  --text: #171a21;
+  --muted: #5d6574;
+  --accent: #e0243f;
+  --accent-2: #f0552a;
+  --ok: #1a8f53;
+  --err: #cf2e3f;
+  --err-bg: rgba(207, 46, 63, 0.08);
+  --err-border: rgba(207, 46, 63, 0.3);
+  --glow: #fde4e9;
+  --shimmer: #dfe2e9;
+  --youtube: #d61f1f;
+  --tiktok: #08827e;
+  --instagram: #c2185b;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: radial-gradient(1200px 600px at 50% -200px, #2a1520 0%, var(--bg) 60%);
+  background: radial-gradient(1200px 600px at 50% -200px, var(--glow) 0%, var(--bg) 60%);
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -86,15 +114,15 @@ button[type='submit'], .primary, .button {
 .skeleton {
   height: 96px;
   border-radius: 12px;
-  background: linear-gradient(90deg, var(--card-2) 25%, #262b36 50%, var(--card-2) 75%);
+  background: linear-gradient(90deg, var(--card-2) 25%, var(--shimmer) 50%, var(--card-2) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.2s infinite linear;
 }
 @keyframes shimmer { to { background-position: -200% 0; } }
 
 .error {
-  background: rgba(255, 92, 108, 0.1);
-  border: 1px solid rgba(255, 92, 108, 0.35);
+  background: var(--err-bg);
+  border: 1px solid var(--err-border);
   color: var(--err);
   padding: 10px 12px;
   border-radius: 10px;
@@ -123,9 +151,9 @@ button[type='submit'], .primary, .button {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.badge.youtube { background: #ff000022; color: #ff5c5c; }
-.badge.tiktok { background: #25f4ee22; color: #25f4ee; }
-.badge.instagram { background: #e1306c22; color: #f06292; }
+.badge.youtube { background: color-mix(in srgb, var(--youtube) 14%, transparent); color: var(--youtube); }
+.badge.tiktok { background: color-mix(in srgb, var(--tiktok) 14%, transparent); color: var(--tiktok); }
+.badge.instagram { background: color-mix(in srgb, var(--instagram) 14%, transparent); color: var(--instagram); }
 
 .options { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
 .options label { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: var(--muted); }
@@ -196,9 +224,9 @@ code { background: var(--card-2); padding: 2px 6px; border-radius: 6px; font-siz
   font-size: 0.9rem;
   overflow-wrap: anywhere;
 }
-.status.available { border-color: rgba(255, 61, 90, 0.5); }
+.status.available { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
 .status.latest { color: var(--ok); }
-.status.error { color: var(--err); border-color: rgba(255, 92, 108, 0.35); }
+.status.error { color: var(--err); border-color: var(--err-border); }
 .status .bar { margin: 8px 0 0; }
 
 .switch {
