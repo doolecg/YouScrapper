@@ -2,3 +2,5 @@ node_modules/
 dist/
 bin/
 release/
+.idea/
+.operant/
