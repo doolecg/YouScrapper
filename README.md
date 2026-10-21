@@ -141,6 +141,18 @@ YouScrapper/
 └── package.json         # Scripts + electron-builder config
 ```
 
-## Legal
+## Disclaimer
 
-YouScrapper is intended for downloading content you own, content that is in the public domain or licensed for reuse, or content you otherwise have permission to save. Respect copyright and each platform's Terms of Service.
+Copyright (c) 2026 doole. All rights reserved. No licence is granted to copy, change or share this code unless the author says so in writing.
+
+This software is provided "as is", without warranty of any kind. To the extent permitted by law, the author is not liable for any loss or damage from using it, including lost data, lost work or damage to files or projects. Nothing here limits liability that cannot be limited by law, such as for death or personal injury caused by negligence.
+
+Back up your work before using it. You use it at your own risk.
+
+Not affiliated with or endorsed by YouTube, TikTok, Instagram or the makers of yt-dlp.
+
+You are responsible for following the terms of service of any site you use this with, and for copyright in anything you download. Use it only for content you have the right to access.
+
+YouScrapper is intended for downloading content you own, content that is in the public domain or licensed for reuse, or content you otherwise have permission to save.
+
+The app contacts the sites whose links you give it and GitHub (to check for updates and to update yt-dlp). It does not send your downloads or settings to the author.
