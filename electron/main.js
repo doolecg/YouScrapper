@@ -3,7 +3,7 @@ import { execFile } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getSettings, resetSettings, setSettingsFromUi } from './settings.js';
+import { getSettings, resetSettings, setSettings, setSettingsFromUi } from './settings.js';
 import { checkForUpdates, cleanupOldPortable, portableExe, REPO } from './updater.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -74,6 +74,18 @@ async function updateYtDlpWithDialog() {
     message: result.ok ? 'yt-dlp update finished' : 'Update failed',
     detail: result.output,
   });
+}
+
+async function showFirstRunNotice() {
+  if (getSettings().legalAccepted) return;
+  await dialog.showMessageBox(win, {
+    type: 'info',
+    title: 'Before you start',
+    message: 'Use YouScrapper responsibly',
+    detail: "You are responsible for following the terms of each site you use, and for copyright in anything you download. Only use YouScrapper for content you have the right to access.",
+    buttons: ['I understand'],
+  });
+  setSettings({ legalAccepted: true });
 }
 
 function openSettings() {
@@ -148,6 +160,7 @@ app.on('window-all-closed', () => app.quit());
 app.whenReady().then(async () => {
   cleanupOldPortable();
   await createWindow();
+  showFirstRunNotice();
   const settings = getSettings();
   if (settings.autoUpdateYtDlp) updateYtDlp();
   if (settings.autoCheckUpdates) checkForUpdates(win);

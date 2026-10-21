@@ -303,6 +303,9 @@ export default function Settings({ prefs, setPref, resetPrefs, config, onConfigC
             YouScrapper v{versions.app} · Electron {versions.electron} · yt-dlp {versions.ytdlp || 'unknown'}
           </p>
         )}
+        <p className="muted">
+          Provided as is, without warranty. To the extent permitted by law, the authors are not liable for any loss or damage from using it. Back up your work.
+        </p>
         <Setting label="Reset settings" hint="Restore every setting on this page to its default.">
           <button type="button" className="ghost small" onClick={resetAll}>Reset all</button>
         </Setting>

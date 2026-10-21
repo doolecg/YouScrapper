@@ -10,6 +10,7 @@ export const DEFAULTS = {
   skippedVersion: null,
   lastUpdateCheck: null,
   autoUpdateYtDlp: false,
+  legalAccepted: false,
   downloadDir: null, // null = %USERPROFILE%\Downloads\YouScrapper
 };
 
